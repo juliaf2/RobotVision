@@ -10,7 +10,7 @@
 		CD33AA22237D34EA00DEF100 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD33AA21237D34EA00DEF100 /* main.cpp */; };
 		CD33AA2C237D376200DEF100 /* default.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD33AA2A237D36D200DEF100 /* default.xml */; };
 		CD33AA2E237D390E00DEF100 /* Info.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD33AA2D237D38B200DEF100 /* Info.plist */; };
-		CD33AA30237D3BEE00DEF100 /* files.yml in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD33AA2F237D3BE400DEF100 /* files.yml */; };
+		CD33AA30237D3BEE00DEF100 /* files.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD33AA2F237D3BE400DEF100 /* files.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -22,7 +22,7 @@
 			files = (
 				CD33AA2C237D376200DEF100 /* default.xml in CopyFiles */,
 				CD33AA2E237D390E00DEF100 /* Info.plist in CopyFiles */,
-				CD33AA30237D3BEE00DEF100 /* files.yml in CopyFiles */,
+				CD33AA30237D3BEE00DEF100 /* files.xml in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,7 +33,7 @@
 		CD33AA21237D34EA00DEF100 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		CD33AA2A237D36D200DEF100 /* default.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = default.xml; path = RobotVision/default.xml; sourceTree = SOURCE_ROOT; };
 		CD33AA2D237D38B200DEF100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CD33AA2F237D3BE400DEF100 /* files.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = files.yml; sourceTree = "<group>"; };
+		CD33AA2F237D3BE400DEF100 /* files.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = files.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 				CD33AA2A237D36D200DEF100 /* default.xml */,
 				CD33AA21237D34EA00DEF100 /* main.cpp */,
 				CD33AA2D237D38B200DEF100 /* Info.plist */,
-				CD33AA2F237D3BE400DEF100 /* files.yml */,
+				CD33AA2F237D3BE400DEF100 /* files.xml */,
 			);
 			path = RobotVision;
 			sourceTree = "<group>";

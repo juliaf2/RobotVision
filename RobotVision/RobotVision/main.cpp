@@ -310,16 +310,20 @@ int main(int argc, char* argv[])
     const char ESC_KEY = 27;
     
     //! [get_input]
-    for(;;)
+    for(int i=0;;i++)
     {
         Mat view;
         bool blinkOutput = false;
+        
+        
+        cout << "Getting next image" << endl;
         
         view = s.nextImage();
         
         //-----  If no more image, or got enough, then stop calibration and show result -------------
         if( mode == CAPTURING && imagePoints.size() >= (size_t)s.nrFrames )
         {
+            cout << "Got enough" << endl;
             if(runCalibrationAndSave(s, imageSize,  cameraMatrix, distCoeffs, imagePoints, grid_width,
                                      release_object))
                 mode = CALIBRATED;
@@ -328,6 +332,7 @@ int main(int argc, char* argv[])
         }
         if(view.empty())          // If there are no more images stop the loop
         {
+            cout << "No more images" << endl;
             // if calibration threshold was not reached yet, calibrate now
             if( mode != CALIBRATED && !imagePoints.empty() )
                 runCalibrationAndSave(s, imageSize,  cameraMatrix, distCoeffs, imagePoints, grid_width,
@@ -351,6 +356,8 @@ int main(int argc, char* argv[])
             chessBoardFlags |= CALIB_CB_FAST_CHECK;
         }
         
+        cout << "Searching for the patterns..." << endl;
+        
         switch( s.calibrationPattern ) // Find feature points on the input format
         {
             case Settings::CHESSBOARD:
@@ -370,6 +377,7 @@ int main(int argc, char* argv[])
         //! [pattern_found]
         if ( found)                // If done with success,
         {
+            cout << "Pattern found" << endl;
             // improve the found corners' coordinate accuracy for chessboard
             if( s.calibrationPattern == Settings::CHESSBOARD)
             {
@@ -426,6 +434,9 @@ int main(int argc, char* argv[])
         //------------------------------ Show image and check for input commands -------------------
         //! [await_input]
         imshow("Image View", view);
+        char filename[256];
+        sprintf(filename, "output/image-%d.jpg", i);
+        imwrite(filename, view);
         char key = (char)waitKey(s.inputCapture.isOpened() ? 50 : s.delay);
         
         if( key  == ESC_KEY )
@@ -471,6 +482,9 @@ int main(int argc, char* argv[])
                 continue;
             remap(view, rview, map1, map2, INTER_LINEAR);
             imshow("Image View", rview);
+            char filename[256];
+            sprintf(filename, "output/image-r-%d.jpg", i);
+            imwrite(filename, rview);
             char c = (char)waitKey();
             if( c  == ESC_KEY || c == 'q' || c == 'Q' )
                 break;

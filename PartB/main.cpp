@@ -134,6 +134,7 @@ int main(int argc, char **argv) {
     cv::Mat workImage, srcImage, colorImg;
     vector<vector<tuple<int, int>>> *areas;
 
+    // parsing sysargs
     while ((c = getopt(argc, argv, "p:h")) != -1)
         switch (c) {
             case 'p':
@@ -153,7 +154,6 @@ int main(int argc, char **argv) {
     }
 
     cout << "Performing analysis for image: " << path << endl;
-    // Load a gray scale picture.
     srcImage = cv::imread(path, 0);
     if (!srcImage.data) {
         perror("Could not load image:");
@@ -161,27 +161,19 @@ int main(int argc, char **argv) {
     }
     cv::cvtColor(srcImage, colorImg, cv::COLOR_GRAY2RGB);
 
-    // Create windows for debug.
     cv::namedWindow("Output", cv::WINDOW_AUTOSIZE);
 
 
-    // Show the source image.
-    //cv::imshow("SrcImage", SrcImage);
-    //cv::waitKey();
-
-    // Duplicate the source iamge.
     workImage = srcImage.clone();
 
 
     //Extract the contour of
     cv::GaussianBlur(workImage, workImage, cv::Size(3, 3), 0, 0);
     cv::threshold(workImage, workImage, 128, 255, cv::THRESH_BINARY);
-
-
-    // Opening
     cv::erode(workImage, workImage, cv::Mat());
     cv::dilate(workImage, workImage, cv::Mat());
 
+    // get all relevant areas and perform a pca on them
     areas = get_areas(workImage);
     for (auto max_area: *areas) {
         auto centroid = get_centoid(&max_area);

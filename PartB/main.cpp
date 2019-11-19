@@ -11,6 +11,8 @@
 #include <unistd.h>
 
 
+#define PI 3.141592653589793238463
+#define LIN_LEN 200.0
 using namespace std;
 
 typedef unordered_map<unsigned long, bool> THashMap;
@@ -129,6 +131,9 @@ vector<vector<tuple<int, int>>> *get_areas(cv::Mat image) {
 int main(int argc, char **argv) {
     int c;
     string path;
+    cv::Mat workImage, srcImage, colorImg;
+    vector<vector<tuple<int, int>>> *areas;
+
     while ((c = getopt(argc, argv, "p:h")) != -1)
         switch (c) {
             case 'p':
@@ -146,8 +151,6 @@ int main(int argc, char **argv) {
         cerr << "Path not provided";
         return 1;
     }
-
-    cv::Mat workImage, srcImage, colorImg;
 
     cout << "Performing analysis for image: " << path << endl;
     // Load a gray scale picture.
@@ -179,18 +182,20 @@ int main(int argc, char **argv) {
     cv::erode(workImage, workImage, cv::Mat());
     cv::dilate(workImage, workImage, cv::Mat());
 
-    auto areas = get_areas(workImage);
+    areas = get_areas(workImage);
     for (auto max_area: *areas) {
         auto centroid = get_centoid(&max_area);
         double pa_angle_1 = get_pa_angle(&max_area, centroid);
-        double x_1 = centroid->x + 100 * sin(pa_angle_1);
-        double y_1 = centroid->y + 100 * cos(pa_angle_1);
-        double x_0 = centroid->x - 100 * sin(pa_angle_1);
-        double y_0 = centroid->y - 100 * cos(pa_angle_1);
+        double x_1 = centroid->x + LIN_LEN * sin(pa_angle_1);
+        double y_1 = centroid->y + LIN_LEN * cos(pa_angle_1);
+        double x_0 = centroid->x - LIN_LEN * sin(pa_angle_1);
+        double y_0 = centroid->y - LIN_LEN * cos(pa_angle_1);
         cv::circle(colorImg, *centroid, 5, cv::Scalar(0, 0, 255.0), 1);
         cv::circle(colorImg, *centroid, 1, cv::Scalar(0, 0, 255.0), 1);
         cv::line(colorImg, cv::Point2f(x_0, y_0), cv::Point2f(x_1, y_1), cv::Scalar(0, 0, 255.0), 1);
-        cout << centroid->x << " " << centroid->y << " " << pa_angle_1 << endl;
+        cout << "x: " << centroid->x << " "
+             << "y: " << centroid->y << " "
+             << "p_a: " << pa_angle_1 * (180.0 / PI) << endl;
     }
 
     cv::imshow("Output", colorImg);

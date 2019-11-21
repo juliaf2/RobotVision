@@ -161,9 +161,6 @@ int main(int argc, char **argv) {
     }
     cv::cvtColor(srcImage, colorImg, cv::COLOR_GRAY2RGB);
 
-    cv::namedWindow("Output", cv::WINDOW_AUTOSIZE);
-
-
     workImage = srcImage.clone();
 
 
@@ -175,6 +172,7 @@ int main(int argc, char **argv) {
 
     // get all relevant areas and perform a pca on them
     areas = get_areas(workImage);
+    cout << "Resulting centroid(s), principle angle(s):" << endl;
     for (auto max_area: *areas) {
         auto centroid = get_centoid(&max_area);
         double pa_angle_1 = get_pa_angle(&max_area, centroid);
@@ -189,8 +187,5 @@ int main(int argc, char **argv) {
              << "y: " << centroid->y << " "
              << "p_a: " << pa_angle_1 * (180.0 / PI) << endl;
     }
-
-    cv::imshow("Output", colorImg);
-    cv::waitKey();
     return 0;
 }

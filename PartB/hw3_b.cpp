@@ -161,6 +161,9 @@ int main(int argc, char **argv) {
     }
     cv::cvtColor(srcImage, colorImg, cv::COLOR_GRAY2RGB);
 
+    cv::namedWindow("Output", cv::WINDOW_AUTOSIZE);
+
+
     workImage = srcImage.clone();
 
 
@@ -187,5 +190,8 @@ int main(int argc, char **argv) {
              << "y: " << centroid->y << " "
              << "p_a: " << pa_angle_1 * (180.0 / PI) << endl;
     }
+
+    cv::imshow("Output", colorImg);
+    cv::waitKey();
     return 0;
 }

@@ -13,5 +13,5 @@ project(PartB)
 find_package(OpenCV REQUIRED)
 
 
-add_executable(DisplayImage main.cpp)
+add_executable(displayImage hw3_b.cpp)
 target_link_libraries(DisplayImage ${OpenCV_LIBS})

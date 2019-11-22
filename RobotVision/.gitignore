@@ -1,4 +1,6 @@
 DerivedData/
+out_camera_data.xml
+robotVision
 
 
 # Created by https://www.gitignore.io/api/cmake
